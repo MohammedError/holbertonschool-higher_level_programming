@@ -12,15 +12,15 @@ if __name__ == "__main__":
     b = int(sys.argv[3])
 
     if op == "+":
-        result = add(a, b)
+        res = add(a, b)
     elif op == "-":
-        result = sub(a, b)
+        res = sub(a, b)
     elif op == "*":
-        result = mul(a, b)
+        res = mul(a, b)
     elif op == "/":
-        result = div(a, b)
+        res = div(a, b)
     else:
         print("Unknown operator. Available operators: +, -, * and /")
         sys.exit(1)
 
-    print("{} {} {} = {}".format(a, op, b, result))
+    print("{} {} {} = {}".format(a, op, b, res))
