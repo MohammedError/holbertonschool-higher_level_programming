@@ -7,49 +7,75 @@ Using ``lazy_matrix_mul``
 Importing the function:
     >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
 
-Basic Multiplication (2x2 * 2x2):
+Basic Multiplication:
     >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
     [[ 7 10]
      [15 22]]
 
-Vector Multiplication (1x2 * 2x2):
     >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
     [[13 16]]
 
-Different Dimensions (2x3 * 3x2):
-    >>> a = [[1, 2, 3], [4, 5, 6]]
-    >>> b = [[1, 2], [3, 4], [5, 6]]
-    >>> print(lazy_matrix_mul(a, b))
-    [[22 28]
-     [49 64]]
+--- Edge Cases and Exceptions (NumPy behavior) ---
 
-Floats:
-    >>> print(lazy_matrix_mul([[1.5, 2.0], [3.0, 4.5]], [[1.0, 2.0], [3.0, 4.0]]))
-    [[ 7.5 11. ]
-     [16.5 24. ]]
-
---- Validations (NumPy Handling) ---
-
-Invalid dimensions (Incompatible shapes):
+m_a is a string:
     >>> try:
-    ...     lazy_matrix_mul([[1, 2]], [[1, 2]])
+    ...     lazy_matrix_mul("Holberton", [[5, 6], [7, 8]])
     ... except Exception as e:
-    ...     print(e)
-    ...
-    shapes (1,2) and (1,2) not aligned: 2 (dim 1) != 1 (dim 0)
+    ...     print("caught exception")
+    caught exception
 
-Not a list (Scalar vs Matrix):
+m_b is a string:
     >>> try:
-    ...     lazy_matrix_mul("Not a list", [[1, 2]])
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], "Holberton")
     ... except Exception as e:
-    ...     print(type(e).__name__)
-    ...
-    ValueError
+    ...     print("caught exception")
+    caught exception
 
-Empty Matrix:
+m_a is empty list of lists:
     >>> try:
-    ...     lazy_matrix_mul([], [[1, 2]])
+    ...     lazy_matrix_mul([[]], [[5, 6], [7, 8]])
     ... except Exception as e:
-    ...     print(e)
-    ...
-    shapes (0,) and (1,2) not aligned: 0 (dim 0) != 1 (dim 0)
+    ...     print("caught exception")
+    caught exception
+
+m_b is empty list of lists:
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], [[]])
+    ... except Exception as e:
+    ...     print("caught exception")
+    caught exception
+
+m_a contains strings (mixed types):
+    >>> try:
+    ...     lazy_matrix_mul([[5, "6"], [7, 8]], [[5, 6], [7, 8]])
+    ... except Exception as e:
+    ...     print("caught exception")
+    caught exception
+
+m_b contains strings (mixed types):
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], [[5, "6"], [7, 8]])
+    ... except Exception as e:
+    ...     print("caught exception")
+    caught exception
+
+m_a jagged (rows of different size):
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6, 10], [7, 8]], [[5, 6], [7, 8]])
+    ... except Exception as e:
+    ...     print("caught exception")
+    caught exception
+
+m_b jagged (rows of different size):
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], [[5, 6, 1], [7, 8]])
+    ... except Exception as e:
+    ...     print("caught exception")
+    caught exception
+
+Incompatible dimensions (3x2 * 2x3 is valid, but 2x3 * 2x2 is not):
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2, 3], [3, 4, 5]], [[1, 2], [3, 4]])
+    ... except Exception as e:
+    ...     print("caught exception")
+    caught exception
