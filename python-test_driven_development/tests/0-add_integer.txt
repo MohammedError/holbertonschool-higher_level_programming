@@ -47,3 +47,21 @@ Checking for float handling:
 Checking for large numbers:
     >>> add_integer(1e100, 1)
     10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+
+Checking for infinity (Float overflow):
+    >>> add_integer(float('inf'), 0)
+    Traceback (most recent call last):
+        ...
+    OverflowError: cannot convert float infinity to integer
+
+Checking for NaN (Not a Number):
+    >>> add_integer(float('nan'), 0)
+    Traceback (most recent call last):
+        ...
+    ValueError: cannot convert float NaN to integer
+
+Checking for missing arguments:
+    >>> add_integer()
+    Traceback (most recent call last):
+        ...
+    TypeError: add_integer() missing 1 required positional argument: 'a'
