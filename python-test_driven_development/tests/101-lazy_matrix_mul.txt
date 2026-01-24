@@ -15,16 +15,35 @@ Basic Multiplication:
     >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
     [[13 16]]
 
-Case: m_a is a string:
+Case: m_a is a string
     >>> try:
     ...     lazy_matrix_mul("Holberton", [[5, 6], [7, 8]])
     ... except Exception as e:
     ...     print(e)
     Scalar operands are not allowed, use '*' instead
 
-Case: m_b is a string:
+Case: m_b is a string
     >>> try:
     ...     lazy_matrix_mul([[5, 6], [7, 8]], "Holberton")
     ... except Exception as e:
     ...     print(e)
     Scalar operands are not allowed, use '*' instead
+
+Case: m_a is empty
+    >>> try:
+    ...     lazy_matrix_mul([], [[5, 6], [7, 8]])
+    ... except Exception as e:
+    ...     print(e)
+    shapes (0,) and (2,2) not aligned: 0 (dim 0) != 2 (dim 0)
+
+Case: m_b is empty
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], [])
+    ... except Exception as e:
+    ...     print(e)
+    shapes (2,2) and (0,) not aligned: 2 (dim 1) != 0 (dim 0)
+
+Case: m_a contains floats
+    >>> print(lazy_matrix_mul([[1.5, 2.5], [3.5, 4.5]], [[1, 2], [3, 4]]))
+    [[ 9.  13. ]
+     [17.  25. ]]
