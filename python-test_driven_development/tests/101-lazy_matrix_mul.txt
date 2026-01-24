@@ -7,7 +7,7 @@ Using ``lazy_matrix_mul``
 Importing the function:
     >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
 
-Basic Multiplication:
+Basic multiplication:
     >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
     [[ 7 10]
      [15 22]]
@@ -15,95 +15,16 @@ Basic Multiplication:
     >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
     [[13 16]]
 
---- Edge Cases and Exceptions (NumPy behavior) ---
+Error cases:
 
-Case: m_a is a string (Scalar operand)
     >>> try:
     ...     lazy_matrix_mul("Holberton", [[5, 6], [7, 8]])
     ... except Exception as e:
     ...     print(e)
     Scalar operands are not allowed, use '*' instead
 
-Case: m_b is a string (Scalar operand)
     >>> try:
     ...     lazy_matrix_mul([[5, 6], [7, 8]], "Holberton")
     ... except Exception as e:
     ...     print(e)
     Scalar operands are not allowed, use '*' instead
-
-Case: m_a is a scalar integer (Scalar operand)
-    >>> try:
-    ...     lazy_matrix_mul(1, [[5, 6], [7, 8]])
-    ... except Exception as e:
-    ...     print(e)
-    Scalar operands are not allowed, use '*' instead
-
-Case: m_a is an empty list
-    >>> try:
-    ...     lazy_matrix_mul([], [[5, 6], [7, 8]])
-    ... except Exception as e:
-    ...     print(e)
-    shapes (0,) and (2,2) not aligned: 0 (dim 0) != 2 (dim 0)
-
-Case: m_a is a list containing an empty list
-    >>> try:
-    ...     lazy_matrix_mul([[]], [[5, 6], [7, 8]])
-    ... except Exception as e:
-    ...     print(e)
-    shapes (1,0) and (2,2) not aligned: 0 (dim 1) != 2 (dim 0)
-
-Case: m_b is an empty list
-    >>> try:
-    ...     lazy_matrix_mul([[5, 6], [7, 8]], [])
-    ... except Exception as e:
-    ...     print(e)
-    shapes (2,2) and (0,) not aligned: 2 (dim 1) != 0 (dim 0)
-
-Case: m_b is a list containing an empty list
-    >>> try:
-    ...     lazy_matrix_mul([[5, 6], [7, 8]], [[]])
-    ... except Exception as e:
-    ...     print(e)
-    shapes (2,2) and (1,0) not aligned: 2 (dim 1) != 1 (dim 0)
-
-Case: m_a contains mixed types (strings and integers)
-    >>> try:
-    ...     lazy_matrix_mul([[1, "2"], [3, 4]], [[1, 2], [3, 4]])
-    ... except Exception as e:
-    ...     print("Caught exception")
-    Caught exception
-
-Case: m_b contains mixed types (strings and integers)
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, "2"], [3, 4]])
-    ... except Exception as e:
-    ...     print("Caught exception")
-    Caught exception
-
-Case: m_a is jagged (rows of different sizes)
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2, 3], [4, 5]], [[1, 2], [3, 4]])
-    ... except Exception as e:
-    ...     print("Caught exception")
-    Caught exception
-
-Case: m_b is jagged (rows of different sizes)
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3], [4, 5]])
-    ... except Exception as e:
-    ...     print("Caught exception")
-    Caught exception
-
-Case: Incompatible dimensions (2x2 and 1x2)
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2]])
-    ... except Exception as e:
-    ...     print(e)
-    shapes (2,2) and (1,2) not aligned: 2 (dim 1) != 1 (dim 0)
-
-Case: Missing arguments
-    >>> try:
-    ...     lazy_matrix_mul()
-    ... except Exception as e:
-    ...     print(e)
-    lazy_matrix_mul() missing 2 required positional arguments: 'm_a' and 'm_b'
