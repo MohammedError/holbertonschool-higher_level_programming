@@ -6,15 +6,18 @@ import numpy as np
 
 
 def lazy_matrix_mul(m_a, m_b):
+    """
+    Multiplies two matrices using NumPy.
+    """
     if not isinstance(m_a, list):
         raise TypeError("m_a must be a list")
     if not isinstance(m_b, list):
         raise TypeError("m_b must be a list")
 
     if m_a == [] or m_a == [[]]:
-        raise ValueError("m_a cant be empty")
+        raise ValueError("m_a can't be empty")
     if m_b == [] or m_b == [[]]:
-        raise ValueError("m_b cant be empty")
+        raise ValueError("m_b can't be empty")
 
     if not all(isinstance(row, list) for row in m_a):
         raise TypeError("m_a must be a list of lists")
@@ -37,6 +40,6 @@ def lazy_matrix_mul(m_a, m_b):
         raise TypeError("each row of m_b must be of the same size")
 
     if len(m_a[0]) != len(m_b):
-        raise ValueError("m_a and m_b cant be multiplied")
+        raise ValueError("m_a and m_b can't be multiplied")
 
     return np.matmul(m_a, m_b)
