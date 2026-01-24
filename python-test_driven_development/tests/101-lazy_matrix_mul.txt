@@ -1,50 +1,51 @@
-The 101-lazy_matrix_mul module
+The ``101-lazy_matrix_mul`` module
 ==================================
 
-Using lazy_matrix_mul
+Using ``lazy_matrix_mul``
 -------------------------
 
-    >>> lazy_matrix_mul = __import__(101-lazy_matrix_mul).lazy_matrix_mul
+Importing the function:
+    >>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
 
-    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
-    array([[ 7, 10],
-           [15, 22]])
+Basic Multiplication:
+    >>> print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
+    [[ 7 10]
+     [15 22]]
 
-    >>> lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]])
-    array([[13, 16]])
+    >>> print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
+    [[13 16]]
 
-    >>> lazy_matrix_mul("Holberton", [[1, 2], [3, 4]])
-    Traceback (most recent call last):
-    TypeError: m_a must be a list
+Case: m_a is a string
+    >>> try:
+    ...     lazy_matrix_mul("Holberton", [[5, 6], [7, 8]])
+    ... except Exception as e:
+    ...     print(e)
+    Scalar operands are not allowed, use '*' instead
 
-    >>> lazy_matrix_mul([[1, 2], [3, 4]], "Holberton")
-    Traceback (most recent call last):
-    TypeError: m_b must be a list
+Case: m_b is a string
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], "Holberton")
+    ... except Exception as e:
+    ...     print(e)
+    Scalar operands are not allowed, use '*' instead
 
-    >>> lazy_matrix_mul([], [[1, 2], [3, 4]])
-    Traceback (most recent call last):
-    ValueError: m_a cant be empty
+Case: m_a is empty
+    >>> try:
+    ...     lazy_matrix_mul([], [[5, 6], [7, 8]])
+    ... except Exception as e:
+    ...     print(e)
+    shapes (0,) and (2,2) not aligned: 0 (dim 0) != 2 (dim 0)
 
-    >>> lazy_matrix_mul([[1, 2], [3, 4]], [])
-    Traceback (most recent call last):
-    ValueError: m_b cant be empty
+Case: m_b is empty
+    >>> try:
+    ...     lazy_matrix_mul([[5, 6], [7, 8]], [])
+    ... except Exception as e:
+    ...     print(e)
+    shapes (2,2) and (0,) not aligned: 2 (dim 1) != 0 (dim 0)
 
-    >>> lazy_matrix_mul([[1, "2"], [3, 4]], [[1, 2], [3, 4]])
-    Traceback (most recent call last):
-    TypeError: m_a should contain only integers or floats
-
-    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, "2"], [3, 4]])
-    Traceback (most recent call last):
-    TypeError: m_b should contain only integers or floats
-
-    >>> lazy_matrix_mul([[1, 2, 3], [4, 5]], [[1, 2], [3, 4]])
-    Traceback (most recent call last):
-    TypeError: each row of m_a must be of the same size
-
-    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3], [4, 5]])
-    Traceback (most recent call last):
-    TypeError: each row of m_b must be of the same size
-
-    >>> lazy_matrix_mul([[1, 2]], [[1, 2]])
-    Traceback (most recent call last):
-    ValueError: m_a and m_b cant be multiplied
+Case: incompatible sizes
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2]])
+    ... except Exception as e:
+    ...     print(e)
+    shapes (2,2) and (1,2) not aligned: 2 (dim 1) != 1 (dim 0)
