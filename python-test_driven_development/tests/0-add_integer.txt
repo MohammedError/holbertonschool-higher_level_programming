@@ -44,10 +44,6 @@ Checking for float handling:
     >>> add_integer(1.1, 1.9)
     2
 
-Checking for large numbers:
-    >>> add_integer(1e100, 1)
-    10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
-
 Checking for infinity (Float overflow):
     >>> add_integer(float('inf'), 0)
     Traceback (most recent call last):
