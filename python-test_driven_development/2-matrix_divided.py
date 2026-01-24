@@ -36,16 +36,16 @@ def matrix_divided(matrix, div):
         raise TypeError(msg_type)
 
     len_row = 0
-    
+
     for i, row in enumerate(matrix):
         if not isinstance(row, list):
             raise TypeError(msg_type)
-        
+
         if i == 0:
             len_row = len(row)
         elif len(row) != len_row:
             raise TypeError(msg_size)
-            
+
         for item in row:
             if not isinstance(item, (int, float)):
                 raise TypeError(msg_type)
