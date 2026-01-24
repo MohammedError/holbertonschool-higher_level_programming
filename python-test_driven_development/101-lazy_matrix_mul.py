@@ -1,17 +1,20 @@
 #!/usr/bin/python3
 """
-Module that provides a function to multiply two matrices
-using NumPy after validating them.
+Lazy matrix multiplication using NumPy
 """
 import numpy as np
 
 
 def lazy_matrix_mul(m_a, m_b):
-    """Multiplies two matrices using NumPy"""
+    """Multiply two matrices using NumPy"""
 
-    # let NumPy handle scalar/string operands
+    # let NumPy handle non-list cases
     if not isinstance(m_a, list) or not isinstance(m_b, list):
-        return np.matmul(m_a, m_b)
+        try:
+            return np.matmul(m_a, m_b)
+        except Exception as e:
+            print(e)
+            return
 
     # empty checks
     if m_a == [] or m_a == [[]]:
@@ -25,23 +28,23 @@ def lazy_matrix_mul(m_a, m_b):
     if not all(isinstance(row, list) for row in m_b):
         raise TypeError("m_b must be a list of lists")
 
-    # numbers only
+    # numeric values
     if not all(isinstance(x, (int, float)) for row in m_a for x in row):
         raise TypeError("m_a should contain only integers or floats")
     if not all(isinstance(x, (int, float)) for row in m_b for x in row):
         raise TypeError("m_b should contain only integers or floats")
 
-    # same row size
-    row_len_a = len(m_a[0])
-    if not all(len(row) == row_len_a for row in m_a):
+    # same row sizes
+    len_a = len(m_a[0])
+    if not all(len(row) == len_a for row in m_a):
         raise TypeError("each row of m_a must be of the same size")
 
-    row_len_b = len(m_b[0])
-    if not all(len(row) == row_len_b for row in m_b):
+    len_b = len(m_b[0])
+    if not all(len(row) == len_b for row in m_b):
         raise TypeError("each row of m_b must be of the same size")
 
     # multiplication rule
-    if row_len_a != len(m_b):
+    if len_a != len(m_b):
         raise ValueError("m_a and m_b can't be multiplied")
 
     return np.matmul(m_a, m_b)
