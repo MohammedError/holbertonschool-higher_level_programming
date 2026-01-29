@@ -2,39 +2,29 @@
 import sys
 
 
-def is_safe(board, row, col):
+def is_safe(solution, row, col):
     """
-    Check if it's safe to place a queen at board[row][col].
-    Args:
-        board: List of list [[r, c], [r, c]] representing placed queens.
-        row: Current row.
-        col: Current column.
+    Check if a queen can be placed at (row, col)
     """
-    for r, c in board:
-        if c == col:
-            return False
-        if abs(row - r) == abs(col - c):
+    for r, c in solution:
+        if c == col or abs(row - r) == abs(col - c):
             return False
     return True
 
 
-def solve_nqueens(row, n, board):
+def solve_nqueens(row, n, solution):
     """
-    Recursively solve the N queens puzzle.
-    Args:
-        row: Current row to place queen.
-        n: The size of the board (N).
-        board: List containing current solution path.
+    Backtracking function to find solutions
     """
     if row == n:
-        print(board)
+        print(solution)
         return
 
     for col in range(n):
-        if is_safe(board, row, col):
-            board.append([row, col])
-            solve_nqueens(row + 1, n, board)
-            board.pop()
+        if is_safe(solution, row, col):
+            solution.append([row, col])
+            solve_nqueens(row + 1, n, solution)
+            solution.pop()
 
 
 if __name__ == "__main__":
