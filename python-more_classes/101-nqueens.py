@@ -11,10 +11,8 @@ def is_safe(board, row, col):
         col: Current column.
     """
     for r, c in board:
-        # Check column
         if c == col:
             return False
-        # Check diagonals
         if abs(row - r) == abs(col - c):
             return False
     return True
