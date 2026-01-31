@@ -1,0 +1,45 @@
+The ``1-my_list`` module
+========================
+
+Using ``MyList``
+----------------
+
+Import the class:
+    >>> MyList = __import__('1-my_list').MyList
+
+Create a MyList instance:
+    >>> my_list = MyList()
+
+Check if it inherits from list:
+    >>> isinstance(my_list, list)
+    True
+
+Append some elements:
+    >>> my_list.append(1)
+    >>> my_list.append(4)
+    >>> my_list.append(2)
+    >>> my_list.append(3)
+    >>> my_list.append(5)
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Print the list sorted:
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+
+Verify the original list is still unsorted:
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Test with negative numbers:
+    >>> my_list2 = MyList()
+    >>> my_list2.append(-1)
+    >>> my_list2.append(-5)
+    >>> my_list2.append(-3)
+    >>> my_list2.print_sorted()
+    [-5, -3, -1]
+
+Test with empty list:
+    >>> my_list3 = MyList()
+    >>> my_list3.print_sorted()
+    []
