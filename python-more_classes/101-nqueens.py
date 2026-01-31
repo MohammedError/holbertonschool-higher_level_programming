@@ -2,45 +2,41 @@
 import sys
 
 
-def is_safe(solution, row, col):
+def is_safe(queens, row, col):
     """
-    Check if a queen can be placed at (row, col)
+    Check if placing a queen at (row, col) is safe relative to existing queens.
     Args:
-        solution: List of placed queens [[r, c], ...]
-        row: Current row
-        col: Current column
+        queens: List of [r, c] pairs for placed queens.
+        row: The current row.
+        col: The current column.
     """
-    for r, c in solution:
-        # Check column or diagonal
-        if c == col or abs(row - r) == abs(col - c):
+    for r, c in queens:
+        if c == col:
+            return False
+        if abs(row - r) == abs(col - c):
             return False
     return True
 
 
-def solve_nqueens(row, n, solution):
+def solve_nqueens(n, row, queens):
     """
-    Backtracking function to find all solutions
+    Recursive backtracking function to solve N Queens.
     Args:
-        row: Current row to place queen
-        n: Board size
-        solution: List of placed queens so far
+        n: The size of the board.
+        row: The current row being placed.
+        queens: List of placed queens so far.
     """
     if row == n:
-        print(solution)
+        print(queens)
         return
 
     for col in range(n):
-        if is_safe(solution, row, col):
-            # Place queen
-            solution.append([row, col])
-            # Recurse
-            solve_nqueens(row + 1, n, solution)
-            # Backtrack
-            solution.pop()
+        if is_safe(queens, row, col):
+            # Pass a new list with the added queen to the next recursion level
+            solve_nqueens(n, row + 1, queens + [[row, col]])
 
 
 if __name__ == "__main__":
-    # Argument validation
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
@@ -55,5 +51,4 @@ if __name__ == "__main__":
         print("N must be at least 4")
         sys.exit(1)
 
-    # Start solver
-    solve_nqueens(0, n, [])
+    solve_nqueens(n, 0, [])
