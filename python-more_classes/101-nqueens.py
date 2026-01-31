@@ -1,49 +1,59 @@
 #!/usr/bin/python3
 import sys
 
+
 def is_safe(solution, row, col):
-    """Check if a queen can be placed at (row, col)"""
+    """
+    Check if a queen can be placed at (row, col)
+    Args:
+        solution: List of placed queens [[r, c], ...]
+        row: Current row
+        col: Current column
+    """
     for r, c in solution:
+        # Check column or diagonal
         if c == col or abs(row - r) == abs(col - c):
             return False
     return True
 
-def solve_nqueens_rec(row, n, solution, solutions):
-    """Backtracking function to find all solutions"""
+
+def solve_nqueens(row, n, solution):
+    """
+    Backtracking function to find all solutions
+    Args:
+        row: Current row to place queen
+        n: Board size
+        solution: List of placed queens so far
+    """
     if row == n:
-        solutions.append(solution.copy())
+        print(solution)
         return
+
     for col in range(n):
         if is_safe(solution, row, col):
+            # Place queen
             solution.append([row, col])
-            solve_nqueens_rec(row + 1, n, solution, solutions)
+            # Recurse
+            solve_nqueens(row + 1, n, solution)
+            # Backtrack
             solution.pop()
 
-def solve_nqueens(n):
-    """Return all solutions for N queens"""
-    solutions = []
-    solve_nqueens_rec(0, n, [], solutions)
-    return solutions
 
 if __name__ == "__main__":
-    # Check number of arguments
+    # Argument validation
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
 
-    # Check if argument is integer
     try:
         n = int(sys.argv[1])
     except ValueError:
         print("N must be a number")
         sys.exit(1)
 
-    # Check if N >= 4
     if n < 4:
         print("N must be at least 4")
         sys.exit(1)
 
-    # Solve N queens
-    solutions = solve_nqueens(n)
-    for sol in solutions:
-        print(sol)
+    # Start solver
+    solve_nqueens(0, n, [])
