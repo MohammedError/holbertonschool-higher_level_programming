@@ -1,0 +1,8 @@
+-- LISTS ALL CITIES OF CALIFORNIA IN THE DATABASE HBTN_0D_USA
+-- USES A SUBQUERY INSTEAD OF JOIN
+SELECT id, name FROM cities
+WHERE state_id = (
+    SELECT id FROM states
+    WHERE name = 'California'
+)
+ORDER BY id ASC;
