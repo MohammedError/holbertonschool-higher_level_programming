@@ -1,0 +1,3 @@
+-- LISTS ALL PRIVILEGES OF THE MYSQL USERS USER_0D_1 AND USER_0D_2
+SHOW GRANTS FOR 'user_0d_1'@'localhost';
+SHOW GRANTS FOR 'user_0d_2'@'localhost';
