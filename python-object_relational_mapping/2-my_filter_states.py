@@ -4,7 +4,6 @@
 import MySQLdb
 import sys
 
-
 if __name__ == "__main__":
     db = MySQLdb.connect(
         host="localhost",
@@ -16,7 +15,7 @@ if __name__ == "__main__":
     )
 
     cur = db.cursor()
-    query = "SELECT * FROM states WHERE name = '{}' ".format(
+    query = "SELECT * FROM states WHERE BINARY name = '{}' ".format(
         sys.argv[4]
     ) + "ORDER BY id ASC"
     cur.execute(query)
