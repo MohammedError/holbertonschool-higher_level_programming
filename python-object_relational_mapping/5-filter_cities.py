@@ -14,9 +14,7 @@ if __name__ == "__main__":
         passwd=sys.argv[2],
         db=sys.argv[3]
     )
-
     cur = db.cursor()
-    
     query = """
     SELECT cities.name
     FROM cities
@@ -24,11 +22,8 @@ if __name__ == "__main__":
     WHERE states.name = %s
     ORDER BY cities.id ASC
     """
-    
     cur.execute(query, (sys.argv[4],))
-
     rows = cur.fetchall()
     print(", ".join([row[0] for row in rows]))
-
     cur.close()
     db.close()
