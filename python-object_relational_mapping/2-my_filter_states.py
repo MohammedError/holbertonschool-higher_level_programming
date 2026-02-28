@@ -1,10 +1,9 @@
 #!/usr/bin/python3
-"""
-This script filters states by user input.
-"""
+"""Script that filters states by name from hbtn_0e_0_usa"""
 
 import MySQLdb
 import sys
+
 
 if __name__ == "__main__":
     db = MySQLdb.connect(
@@ -20,12 +19,8 @@ if __name__ == "__main__":
     query = "SELECT * FROM states WHERE BINARY name = '{}' ORDER BY id ASC".format(sys.argv[4])
     cur.execute(query)
 
-    rows = cur.fetchall()
-    if rows:
-        for row in rows:
-            print(row)
-    else:
-        print("No states found")
+    for row in cur.fetchall():
+        print(row)
 
     cur.close()
     db.close()
