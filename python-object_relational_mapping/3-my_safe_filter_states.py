@@ -18,8 +18,10 @@ if __name__ == "__main__":
     query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
     cur.execute(query, (sys.argv[4],))
 
-    for row in cur.fetchall():
-        print(row)
+    rows = cur.fetchall()
+    if rows:
+        for row in rows:
+            print(row)
 
     cur.close()
     db.close()
