@@ -1,0 +1,8 @@
+The module is documented.
+You must use format() to create the SQL query with user input.
+Correct output – Case 1: 2 records returned + search for an existing record.
+Correct output – Case 2: 0 records returned.
+Correct output – Case 3: 2 records returned (repeated 4 times) + search for an existing record.
+Pycodestyle validation passed.
+Correct output – Case 4: 5 records returned (case-sensitive search) + search for an existing record.
+Correct output – Case 5: 2 records returned + search for a non-existing record.
