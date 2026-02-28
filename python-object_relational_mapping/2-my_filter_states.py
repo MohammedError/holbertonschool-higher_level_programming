@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-"""Script that filters states by name from hbtn_0e_0_usa"""
+"""Lists all states from the database hbtn_0e_0_usa that match the user input."""
 
 import MySQLdb
 import sys
-
 
 if __name__ == "__main__":
     db = MySQLdb.connect(
@@ -20,8 +19,10 @@ if __name__ == "__main__":
     query += "ORDER BY id ASC"
     cur.execute(query)
 
-    for row in cur.fetchall():
-        print(row)
+    rows = cur.fetchall()
+    if rows:
+        for row in rows:
+            print(row)
 
     cur.close()
     db.close()
