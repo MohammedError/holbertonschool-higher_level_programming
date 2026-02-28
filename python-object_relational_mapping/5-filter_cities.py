@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-"""Lists all cities of a state from the database hbtn_0e_4_usa"""
-
+"""
+Lists all cities of a state from the database hbtn_0e_4_usa.
+"""
 import MySQLdb
 import sys
+
 
 if __name__ == "__main__":
     db = MySQLdb.connect(
@@ -10,23 +12,23 @@ if __name__ == "__main__":
         port=3306,
         user=sys.argv[1],
         passwd=sys.argv[2],
-        db=sys.argv[3],
-        charset="utf8"
+        db=sys.argv[3]
     )
 
     cur = db.cursor()
+    
     query = """
     SELECT cities.name
     FROM cities
-    JOIN states ON cities.state_id = states.id
+    INNER JOIN states ON cities.state_id = states.id
     WHERE states.name = %s
     ORDER BY cities.id ASC
     """
+    
     cur.execute(query, (sys.argv[4],))
 
-    cities = cur.fetchall()
-    if cities:
-        print(", ".join([city[0] for city in cities]))
+    rows = cur.fetchall()
+    print(", ".join([row[0] for row in rows]))
 
     cur.close()
     db.close()
