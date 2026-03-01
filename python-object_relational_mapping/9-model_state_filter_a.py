@@ -23,7 +23,6 @@ def list_states_with_a(username, password, db_name):
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
     session = Session()
-    # ilike for case-insensitive search
     states = session.query(State).filter(State.name.ilike('%a%')).order_by(State.id)
     for state in states:
         print(f"{state.id}: {state.name}")
@@ -32,6 +31,6 @@ def list_states_with_a(username, password, db_name):
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print("Usage: ./9-model_state_filter_a.py <username> <password> <database>")
+        print("Usage: python3 9-model_state_filter_a.py <username> <password> <database>")
         sys.exit(1)
     list_states_with_a(sys.argv[1], sys.argv[2], sys.argv[3])
