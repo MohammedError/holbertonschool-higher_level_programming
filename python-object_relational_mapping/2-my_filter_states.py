@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Lists all states from the database hbtn_0e_0_usa where name matches the argument.
+This script lists all states from the database hbtn_0e_0_usa
+where name matches the argument provided as a parameter.
 """
 import MySQLdb
 import sys
