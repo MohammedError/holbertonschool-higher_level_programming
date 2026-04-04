@@ -3,6 +3,7 @@
 import json
 import csv
 import sqlite3
+import os
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -10,7 +11,8 @@ app = Flask(__name__)
 
 def create_database():
     """Create and populate the SQLite database."""
-    conn = sqlite3.connect('products.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'products.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Products (
@@ -35,7 +37,8 @@ def create_database():
 def read_json():
     """Read and parse data from the JSON file."""
     try:
-        with open('products.json', 'r') as f:
+        filepath = os.path.join(os.path.dirname(__file__), 'products.json')
+        with open(filepath, 'r') as f:
             data = json.load(f)
         return data
     except (FileNotFoundError, json.JSONDecodeError):
@@ -46,7 +49,8 @@ def read_csv():
     """Read and parse data from the CSV file."""
     products = []
     try:
-        with open('products.csv', 'r') as f:
+        filepath = os.path.join(os.path.dirname(__file__), 'products.csv')
+        with open(filepath, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 products.append({
@@ -64,7 +68,8 @@ def read_sql():
     """Read data from the SQLite database."""
     products = []
     try:
-        conn = sqlite3.connect('products.db')
+        db_path = os.path.join(os.path.dirname(__file__), 'products.db')
+        conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         cursor.execute('SELECT id, name, category, price FROM Products')
         rows = cursor.fetchall()
